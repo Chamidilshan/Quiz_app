@@ -17,12 +17,27 @@ class QuestionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      child: Text(
-          'Question ${indexAction + 1}/$totalQuestions: $question',
-        style: TextStyle(
-          fontSize: 20.0
-        ),
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+              'Question ${indexAction + 1}/$totalQuestions:',
+            style: TextStyle(
+              fontSize: 18.0
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Text('$question',
+            style: TextStyle(
+                fontSize: 18.0
+            ),
+          )
+        ],
       ),
+
     );
   }
 }

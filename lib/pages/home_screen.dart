@@ -1,3 +1,4 @@
+import 'package:commerce_quiz_qpp/widgets/next_button_widget.dart';
 import 'package:commerce_quiz_qpp/widgets/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:commerce_quiz_qpp/constants/constants.dart';
@@ -13,6 +14,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int index = 0;
+
+  void showNextQuestion(){
+    if(index + 1 == _qestions.length){
+      return;
+    } else{
+      setState(() {
+        index++;
+      });
+    }
+  }
 
   List<Question> _qestions = [
     Question(
@@ -91,10 +102,17 @@ class _HomePageState extends State<HomePage> {
                 indexAction: index,
                 totalQuestions: _qestions.length
             ),
-            Divider(color: backColor,)
+            Divider(color: Colors.black,)
           ],
         ),
       ),
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: NextButton(nextQuestion: showNextQuestion),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 }
