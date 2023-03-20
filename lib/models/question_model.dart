@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Question{
+  final String id;
   final String text;
-  final List<Option> options;
-  bool isLocked;
-  Option? selectedOption;
+  final Map<String, bool> options;
 
   Question({
+    required this.id,
     required this.text,
     required this.options,
-    this.isLocked = false,
-    this.selectedOption,
   });
 }
 
-class Option{
-  final String text;
-  final bool isCorrect;
-
-  Option(this.text, this.isCorrect);
-}

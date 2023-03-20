@@ -1,4 +1,4 @@
-import 'package:commerce_quiz_qpp/models/home_screen.dart';
+import 'package:commerce_quiz_qpp/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
