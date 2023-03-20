@@ -1,3 +1,4 @@
+import 'package:commerce_quiz_qpp/widgets/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:commerce_quiz_qpp/constants/constants.dart';
 import 'package:commerce_quiz_qpp/models/question_model.dart';
@@ -79,6 +80,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       backgroundColor: backColor,
+      body: Container(
+        color: normalColor,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            QuestionWidget(
+                question: _qestions[index].text,
+                indexAction: index,
+                totalQuestions: _qestions.length
+            ),
+            Divider(color: backColor,)
+          ],
+        ),
+      ),
     );
   }
 }
