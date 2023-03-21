@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int index = 0;
+  bool isPressed = false;
 
   void showNextQuestion(){
     if(index + 1 == _questions.length){
@@ -22,8 +23,15 @@ class _HomePageState extends State<HomePage> {
     } else{
       setState(() {
         index++;
+        isPressed = false;
       });
     }
+  }
+
+  void changeColor(){
+    setState(() {
+      isPressed = true;
+    });
   }
 
   List<Question> _questions = [
@@ -46,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           'on price' : false,
           'on demand' : false,
           'on supply' : true,
-          'on supply' : false
+          'on hire' : false
         }
     ),
     Question(
@@ -64,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         text: 'Today business activities are carried out without the physical identified place. What is the main facility yse for this?',
         options: {
           'Telephone .' : false,
-          'Telephone .' : false,
+          'Mobile' : false,
           'internet' : true,
           'ideas' : false
         }
@@ -108,7 +116,12 @@ class _HomePageState extends State<HomePage> {
               height: 25.0,
             ),
             for(int i=0; i<_questions[index].options.length; i++)
-              OptionCard(option: _questions[index].options.keys.toList()[i])
+              OptionCard(
+                option: _questions[index].options.keys.toList()[i],
+                color: isPressed ? _questions[index].options.values.toList()[i] == true ?
+                correctColor : wrongColor : normalColor,
+                onTap: changeColor,
+              )
           ],
         ),
       ),
