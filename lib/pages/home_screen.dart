@@ -16,24 +16,91 @@ class _HomePageState extends State<HomePage> {
 
   int index = 0;
   bool isPressed = false;
+  int score = 0;
+  bool isAlreadySelected = false;
 
   void showNextQuestion(){
     if(index + 1 == _questions.length){
-      return;
+      showDialog(context: context, builder: (ctx) => AlertDialog(
+        backgroundColor: backColor,
+        content: Padding(
+          padding: const EdgeInsets.all(80.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                  'Total Score: $score',
+                style:  TextStyle(
+                  color: Colors.white
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              TextButton(
+                onPressed: startOver,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.green
+                ),
+                child: Text(
+                    'Start Again',
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ));
     } else{
-      setState(() {
-        index++;
-        isPressed = false;
-      });
+      if(isPressed){
+        setState(() {
+          index++;
+          isPressed = false;
+        });
+      } else{
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Please select a anwser'),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.symmetric(vertical: 20.0),
+            backgroundColor: backColor,
+          )
+        );
+      }
     }
   }
 
-  void changeColor(){
-    setState(() {
-      isPressed = true;
-    });
+  void checkAndUpdate(bool value) {
+    if (isAlreadySelected) {
+      return;
+    } else {
+      if (value == true) {
+        score++;
+        setState(() {
+          isPressed = true;
+          isAlreadySelected = false;
+        });
+      } else if (value == false) {
+        setState(() {
+          isPressed = true;
+          isAlreadySelected = false;
+        });
+      }
+    }
   }
 
+  void startOver() {
+    setState(() {
+      index = 0;
+      score = 0;
+      isPressed = false;
+      isAlreadySelected = false;
+    });
+    Navigator.pop(context);
+  }
   List<Question> _questions = [
     Question(
         id: '10',
@@ -67,26 +134,26 @@ class _HomePageState extends State<HomePage> {
           'Ideas' : true
         }
     ),
-    Question(
-        id: '13',
-        text: 'Today business activities are carried out without the physical identified place. What is the main facility yse for this?',
-        options: {
-          'Telephone .' : false,
-          'Mobile' : false,
-          'internet' : true,
-          'ideas' : false
-        }
-    ),
-    Question(
-        id: '14',
-        text: 'Who take the correct decision with regard to implementation of business plan?',
-        options: {
-          'Owners' : false,
-          'Suppliers' : false,
-          'Office employees' : false,
-          'Managers' : true
-        }
-    )
+    // Question(
+    //     id: '13',
+    //     text: 'Today business activities are carried out without the physical identified place. What is the main facility yse for this?',
+    //     options: {
+    //       'Telephone .' : false,
+    //       'Mobile' : false,
+    //       'internet' : true,
+    //       'ideas' : false
+    //     }
+    // ),
+    // Question(
+    //     id: '14',
+    //     text: 'Who take the correct decision with regard to implementation of business plan?',
+    //     options: {
+    //       'Owners' : false,
+    //       'Suppliers' : false,
+    //       'Office employees' : false,
+    //       'Managers' : true
+    //     }
+    // )
   ];
 
   @override
@@ -98,6 +165,17 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           'Commerce Quiz App'
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Score: $score',
+              style: TextStyle(
+                fontSize: 14.0
+              ),
+            ),
+          )
+        ],
       ),
       backgroundColor: backColor,
       body: Container(
@@ -116,11 +194,13 @@ class _HomePageState extends State<HomePage> {
               height: 25.0,
             ),
             for(int i=0; i<_questions[index].options.length; i++)
-              OptionCard(
-                option: _questions[index].options.keys.toList()[i],
-                color: isPressed ? _questions[index].options.values.toList()[i] == true ?
-                correctColor : wrongColor : normalColor,
-                onTap: changeColor,
+              GestureDetector(
+                onTap: () => checkAndUpdate(_questions[index].options.values.toList()[i]),
+                child: OptionCard(
+                  option: _questions[index].options.keys.toList()[i],
+                  color: isPressed ? _questions[index].options.values.toList()[i] == true ?
+                  correctColor : normalColor : normalColor,
+                ),
               )
           ],
         ),
