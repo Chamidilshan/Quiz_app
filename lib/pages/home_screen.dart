@@ -1,4 +1,5 @@
 import 'package:commerce_quiz_qpp/widgets/next_button_widget.dart';
+import 'package:commerce_quiz_qpp/widgets/options_widget.dart';
 import 'package:commerce_quiz_qpp/widgets/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:commerce_quiz_qpp/constants/constants.dart';
@@ -16,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   int index = 0;
 
   void showNextQuestion(){
-    if(index + 1 == _qestions.length){
+    if(index + 1 == _questions.length){
       return;
     } else{
       setState(() {
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  List<Question> _qestions = [
+  List<Question> _questions = [
     Question(
         id: '10',
         text: 'A business can be identified as any activity which satisfies '
@@ -98,11 +99,16 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             QuestionWidget(
-                question: _qestions[index].text,
+                question: _questions[index].text,
                 indexAction: index,
-                totalQuestions: _qestions.length
+                totalQuestions: _questions.length
             ),
-            Divider(color: Colors.black,)
+            //Divider(color: Colors.black,),
+            SizedBox(
+              height: 25.0,
+            ),
+            for(int i=0; i<_questions[index].options.length; i++)
+              OptionCard(option: _questions[index].options.keys.toList()[i])
           ],
         ),
       ),
