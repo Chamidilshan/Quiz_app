@@ -4,6 +4,7 @@ import 'package:commerce_quiz_qpp/widgets/question_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:commerce_quiz_qpp/constants/constants.dart';
 import 'package:commerce_quiz_qpp/models/question_model.dart';
+import 'package:commerce_quiz_qpp/models/database.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,14 +14,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  
+  var db = DBconnect();
+  late Future _questions;
+  
+  Future<List<Question>> getData() async{
+    return db.fetchQuestions();
+  }
+  
+  @override
+  void initState() {
+    _questions = getData();
+    super.initState();
+  }
+  
   int index = 0;
   bool isPressed = false;
   int score = 0;
   bool isAlreadySelected = false;
 
-  void showNextQuestion(){
-    if(index + 1 == _questions.length){
+  void showNextQuestion(int questionLength){
+    if(index + 1 == questionLength){
       showDialog(context: context, builder: (ctx) => AlertDialog(
         backgroundColor: backColor,
         content: Padding(
@@ -101,39 +115,39 @@ class _HomePageState extends State<HomePage> {
     });
     Navigator.pop(context);
   }
-  List<Question> _questions = [
-    Question(
-        id: '10',
-        text: 'A business can be identified as any activity which satisfies '
-            'human needs and wants. Wants are created by businessmen. Accordingly, '
-            'main characteristic of a need is,',
-        options: {
-          'Being complex and‘diverse.' : false,
-          'Created by businessmen.' : false,
-          'Common to all' : false,
-          'Being unlimited and unsatisfied' : true
-        }
-    ),
-    Question(
-        id: '11',
-        text: 'The difference between goods and services can be identified',
-        options: {
-          'on price' : false,
-          'on demand' : false,
-          'on supply' : true,
-          'on hire' : false
-        }
-    ),
-    Question(
-        id: '13',
-        text: 'Which of the following is not considered as a product?',
-        options: {
-          'Time' : false,
-          'Goods' : false,
-          'Services' : false,
-          'Ideas' : true
-        }
-    ),
+  // List<Question> _questions = [
+  //   Question(
+  //       id: '10',
+  //       text: 'A business can be identified as any activity which satisfies '
+  //           'human needs and wants. Wants are created by businessmen. Accordingly, '
+  //           'main characteristic of a need is,',
+  //       options: {
+  //         'Being complex and‘diverse.' : false,
+  //         'Created by businessmen.' : false,
+  //         'Common to all' : false,
+  //         'Being unlimited and unsatisfied' : true
+  //       }
+  //   ),
+  //   Question(
+  //       id: '11',
+  //       text: 'The difference between goods and services can be identified',
+  //       options: {
+  //         'on price' : false,
+  //         'on demand' : false,
+  //         'on supply' : true,
+  //         'on hire' : false
+  //       }
+  //   ),
+  //   Question(
+  //       id: '13',
+  //       text: 'Which of the following is not considered as a product?',
+  //       options: {
+  //         'Time' : false,
+  //         'Goods' : false,
+  //         'Services' : false,
+  //         'Ideas' : true
+  //       }
+  //   ),
     // Question(
     //     id: '13',
     //     text: 'Today business activities are carried out without the physical identified place. What is the main facility yse for this?',
@@ -154,64 +168,89 @@ class _HomePageState extends State<HomePage> {
     //       'Managers' : true
     //     }
     // )
-  ];
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backColor,
-        shadowColor: Colors.transparent,
-        title: Text(
-          'Commerce Quiz App'
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              'Score: $score',
-              style: TextStyle(
-                fontSize: 14.0
-              ),
-            ),
-          )
-        ],
-      ),
-      backgroundColor: backColor,
-      body: Container(
-        color: normalColor,
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            QuestionWidget(
-                question: _questions[index].text,
-                indexAction: index,
-                totalQuestions: _questions.length
-            ),
-            //Divider(color: Colors.black,),
-            SizedBox(
-              height: 25.0,
-            ),
-            for(int i=0; i<_questions[index].options.length; i++)
-              GestureDetector(
-                onTap: () => checkAndUpdate(_questions[index].options.values.toList()[i]),
-                child: OptionCard(
-                  option: _questions[index].options.keys.toList()[i],
-                  color: isPressed ? _questions[index].options.values.toList()[i] == true ?
-                  correctColor : normalColor : normalColor,
+    return FutureBuilder(
+      future: _questions as Future<List<Question>>,
+      builder: (ctx, snapshot){
+        if(snapshot.connectionState == ConnectionState.done){
+          if(snapshot.hasError){
+            return Center(
+              child: Text('${snapshot.error}'),
+            );
+          }else if(snapshot.hasData){
+            var extractedData = snapshot.data as List<Question>;
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: backColor,
+                shadowColor: Colors.transparent,
+                title: Text(
+                    'Commerce Quiz App'
                 ),
-              )
-          ],
-        ),
-      ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'Score: $score',
+                      style: TextStyle(
+                          fontSize: 14.0
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              backgroundColor: backColor,
+              body: Container(
+                color: normalColor,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    QuestionWidget(
+                        question: extractedData[index].text,
+                        indexAction: index,
+                        totalQuestions: extractedData.length
+                    ),
+                    //Divider(color: Colors.black,),
+                    SizedBox(
+                      height: 25.0,
+                    ),
+                    for(int i=0; i<extractedData[index].options.length; i++)
+                      GestureDetector(
+                        onTap: () => checkAndUpdate(extractedData[index].options.values.toList()[i]),
+                        child: OptionCard(
+                          option: extractedData[index].options.keys.toList()[i],
+                          color: isPressed ? extractedData[index].options.values.toList()[i] == true ?
+                          correctColor : normalColor : normalColor,
+                        ),
+                      )
+                  ],
+                ),
+              ),
 
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: NextButton(nextQuestion: showNextQuestion),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+              floatingActionButton: GestureDetector(
+                onTap: () => showNextQuestion(extractedData.length),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: NextButton(),
+                ),
+              ),
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+              floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+            );
+          }
+          else{
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }
+        return Center(
+          child: Text('No data'),
+        );
+      },
     );
   }
 }

@@ -10,5 +10,11 @@ class Question{
     required this.text,
     required this.options,
   });
+  @override
+  String toString() {
+    return 'Question(id: $id, title: $text, options: $options)';
+  }
 }
+
+
 
