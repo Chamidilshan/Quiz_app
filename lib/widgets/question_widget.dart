@@ -24,7 +24,8 @@ class QuestionWidget extends StatelessWidget {
           Text(
               'Question ${indexAction + 1}/$totalQuestions:',
             style: TextStyle(
-              fontSize: 18.0
+              fontSize: 18.0,
+              color: Colors.white
             ),
           ),
           SizedBox(
@@ -32,7 +33,8 @@ class QuestionWidget extends StatelessWidget {
           ),
           Text('$question',
             style: TextStyle(
-                fontSize: 18.0
+                fontSize: 18.0,
+              color: Colors.white
             ),
           )
         ],

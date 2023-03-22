@@ -10,7 +10,10 @@ class OptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: color,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0)
+      ),
+      color: Colors.white,
       child: ListTile(
         title:(
             Text(

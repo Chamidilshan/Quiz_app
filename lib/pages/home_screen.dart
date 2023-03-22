@@ -14,20 +14,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
+
   var db = DBconnect();
   late Future _questions;
-  
+
   Future<List<Question>> getData() async{
     return db.fetchQuestions();
   }
-  
+
   @override
   void initState() {
     _questions = getData();
     super.initState();
   }
-  
+
   int index = 0;
   bool isPressed = false;
   int score = 0;
@@ -35,53 +35,68 @@ class _HomePageState extends State<HomePage> {
 
   void showNextQuestion(int questionLength){
     if(index + 1 == questionLength){
-      showDialog(context: context, builder: (ctx) => AlertDialog(
-        backgroundColor: backColor,
-        content: Padding(
-          padding: const EdgeInsets.all(80.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
+      if(isPressed == false){
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Please select a anwser'),
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              backgroundColor: backColor,
+            )
+        );
+      } else{
+        showDialog(context: context, builder: (ctx) => AlertDialog(
+          backgroundColor: backColor,
+          content: Padding(
+            padding: const EdgeInsets.all(80.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
                   'Total Score: $score',
-                style:  TextStyle(
-                  color: Colors.white
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextButton(
-                onPressed: startOver,
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.green
-                ),
-                child: Text(
-                    'Start Again',
-                  style: TextStyle(
-                    color: Colors.white
+                  style:  TextStyle(
+                      color: Colors.white
                   ),
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextButton(
+                  onPressed: startOver,
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.green
+                  ),
+                  child: Text(
+                    'Start Again',
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      ));
+        ));
+      }
     } else{
+      // setState(() {
+      //   isPressed = false;
+      // });
       if(isPressed){
         setState(() {
           index++;
           isPressed = false;
+          isAlreadySelected = false;
         });
       } else{
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+            SnackBar(
               content: Text('Please select a anwser'),
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.symmetric(vertical: 20.0),
-            backgroundColor: backColor,
-          )
+              behavior: SnackBarBehavior.floating,
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              backgroundColor: backColor,
+            )
         );
       }
     }
@@ -95,12 +110,12 @@ class _HomePageState extends State<HomePage> {
         score++;
         setState(() {
           isPressed = true;
-          isAlreadySelected = false;
+          isAlreadySelected = true;
         });
       } else if (value == false) {
         setState(() {
           isPressed = true;
-          isAlreadySelected = false;
+          isAlreadySelected = true;
         });
       }
     }
@@ -138,36 +153,6 @@ class _HomePageState extends State<HomePage> {
   //         'on hire' : false
   //       }
   //   ),
-  //   Question(
-  //       id: '13',
-  //       text: 'Which of the following is not considered as a product?',
-  //       options: {
-  //         'Time' : false,
-  //         'Goods' : false,
-  //         'Services' : false,
-  //         'Ideas' : true
-  //       }
-  //   ),
-    // Question(
-    //     id: '13',
-    //     text: 'Today business activities are carried out without the physical identified place. What is the main facility yse for this?',
-    //     options: {
-    //       'Telephone .' : false,
-    //       'Mobile' : false,
-    //       'internet' : true,
-    //       'ideas' : false
-    //     }
-    // ),
-    // Question(
-    //     id: '14',
-    //     text: 'Who take the correct decision with regard to implementation of business plan?',
-    //     options: {
-    //       'Owners' : false,
-    //       'Suppliers' : false,
-    //       'Office employees' : false,
-    //       'Managers' : true
-    //     }
-    // )
   // ];
 
   @override
@@ -183,49 +168,69 @@ class _HomePageState extends State<HomePage> {
           }else if(snapshot.hasData){
             var extractedData = snapshot.data as List<Question>;
             return Scaffold(
+              backgroundColor: Colors.white,
               appBar: AppBar(
                 backgroundColor: backColor,
-                shadowColor: Colors.transparent,
                 title: Text(
                     'Commerce Quiz App'
                 ),
                 actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(
-                      'Score: $score',
-                      style: TextStyle(
-                          fontSize: 14.0
-                      ),
-                    ),
-                  )
                 ],
+                centerTitle: true,
               ),
-              backgroundColor: backColor,
-              body: Container(
-                color: normalColor,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
+              body: SafeArea(
                 child: Column(
                   children: [
-                    QuestionWidget(
-                        question: extractedData[index].text,
-                        indexAction: index,
-                        totalQuestions: extractedData.length
-                    ),
-                    //Divider(color: Colors.black,),
                     SizedBox(
-                      height: 25.0,
+                      height: 40.0,
                     ),
-                    for(int i=0; i<extractedData[index].options.length; i++)
-                      GestureDetector(
-                        onTap: () => checkAndUpdate(extractedData[index].options.values.toList()[i]),
-                        child: OptionCard(
-                          option: extractedData[index].options.keys.toList()[i],
-                          color: isPressed ? extractedData[index].options.values.toList()[i] == true ?
-                          correctColor : normalColor : normalColor,
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(20.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: backColor,
                         ),
-                      )
+                        padding: EdgeInsets.all(20.0),
+                        height: 400.0,
+                        child: Column(
+                          children: [
+                            QuestionWidget(
+                                question: extractedData[index].text,
+                                indexAction: index,
+                                totalQuestions: extractedData.length
+                            ),
+                            //Divider(color: Colors.black,),
+                            SizedBox(
+                              height: 25.0,
+                            ),
+                            for(int i=0; i<extractedData[index].options.length; i++)
+                              GestureDetector(
+                                onTap: () => checkAndUpdate(extractedData[index].options.values.toList()[i]),
+                                child: OptionCard(
+                                  option: extractedData[index].options.keys.toList()[i],
+                                  color: isPressed
+                                      ? extractedData[index]
+                                      .options
+                                      .values
+                                      .toList()[i] ==
+                                      true
+                                      ? correctColor
+                                      : wrongColor
+                                      : normalColor,
+                                ),
+                              )
+                          ],
+                        ),
+                      ),
+                    ),
+                Text(
+                  'Score: $score',
+                  style: TextStyle(
+                      fontSize: 14.0
+                  ),
+                )
                   ],
                 ),
               ),
@@ -248,9 +253,11 @@ class _HomePageState extends State<HomePage> {
           }
         }
         return Center(
-          child: Text('No data'),
+          child: CircularProgressIndicator()
         );
       },
     );
   }
 }
+
+
