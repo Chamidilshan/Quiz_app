@@ -1,3 +1,4 @@
+import 'package:commerce_quiz_qpp/pages/result_page.dart';
 import 'package:commerce_quiz_qpp/widgets/next_button_widget.dart';
 import 'package:commerce_quiz_qpp/widgets/options_widget.dart';
 import 'package:commerce_quiz_qpp/widgets/question_widget.dart';
@@ -46,39 +47,42 @@ class _HomePageState extends State<HomePage> {
             )
         );
       } else{
-        showDialog(context: context, builder: (ctx) => AlertDialog(
-          backgroundColor: backColor,
-          content: Padding(
-            padding: const EdgeInsets.all(80.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Total Score: $score',
-                  style:  TextStyle(
-                      color: Colors.white
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextButton(
-                  onPressed: startOver,
-                  style: TextButton.styleFrom(
-                      backgroundColor: Colors.green
-                  ),
-                  child: Text(
-                    'Start Again',
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
+       setState(() {
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen()));
+       });
+        // showDialog(context: context, builder: (ctx) => AlertDialog(
+        //   backgroundColor: backColor,
+        //   content: Padding(
+        //     padding: const EdgeInsets.all(80.0),
+        //     child: Column(
+        //       mainAxisSize: MainAxisSize.min,
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         Text(
+        //           'Total Score: $score',
+        //           style:  TextStyle(
+        //               color: Colors.white
+        //           ),
+        //         ),
+        //         SizedBox(
+        //           height: 20.0,
+        //         ),
+        //         TextButton(
+        //           onPressed: startOver,
+        //           style: TextButton.styleFrom(
+        //               backgroundColor: Colors.green
+        //           ),
+        //           child: Text(
+        //             'Start Again',
+        //             style: TextStyle(
+        //                 color: Colors.white
+        //             ),
+        //           ),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ));
       }
     } else{
       // setState(() {

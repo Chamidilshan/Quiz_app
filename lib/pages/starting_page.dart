@@ -1,6 +1,7 @@
 import 'package:commerce_quiz_qpp/constants/constants.dart';
 import 'package:commerce_quiz_qpp/pages/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StartingPage extends StatelessWidget {
   const StartingPage({Key? key}) : super(key: key);
@@ -13,29 +14,34 @@ class StartingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: () {
-              print('pressed lessons');
-            },
-            child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 120.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0)
-              ),
-              color: Colors.lightBlue,
-              child: Container(
-                child: ListTile(
-                  title: Text(
-                    'Theory Lessons',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     print('pressed lessons');
+          //   },
+          //   child: Card(
+          //     margin: EdgeInsets.symmetric(horizontal: 120.0),
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(20.0)
+          //     ),
+          //     color: backColor,
+          //     child: Container(
+          //       child: Row(
+          //         children: [
+          //           FaIcon(FontAwesomeIcons.bookSkull),
+          //           ListTile(
+          //             title: Text(
+          //               'Theory Lessons',
+          //               textAlign: TextAlign.center,
+          //               style: TextStyle(
+          //                 color: Colors.white
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: 20.0,
           ),
@@ -53,11 +59,45 @@ class StartingPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
               ),
-              color: Colors.lightBlue,
+              color: backColor,
+              child: Container(
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      FaIcon(FontAwesomeIcons.book, color: Colors.white.withOpacity(0.5),),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        'Start Quiz',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          GestureDetector(
+            onTap: () {
+              print('pressed lessons');
+            },
+            child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)
+              ),
+              color: backColor,
               child: Container(
                 child: ListTile(
                   title: Text(
-                    'Start Quiz',
+                    'Video Lessons',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white
@@ -66,7 +106,59 @@ class StartingPage extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          GestureDetector(
+            onTap: () {
+              print('pressed lessons');
+            },
+            child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)
+              ),
+              color: backColor,
+              child: Container(
+                child: ListTile(
+                  title: Text(
+                    'Exam Questions',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          GestureDetector(
+            onTap: () {
+              print('pressed lessons');
+            },
+            child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)
+              ),
+              color: backColor,
+              child: Container(
+                child: ListTile(
+                  title: Text(
+                    'About with us',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
 
         ],
       ),

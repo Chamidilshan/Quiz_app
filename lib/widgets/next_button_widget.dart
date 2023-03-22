@@ -7,7 +7,7 @@ class NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: normalColor,
+        color: backColor,
         borderRadius: BorderRadius.circular(20.0)
       ),
       width: double.infinity,
