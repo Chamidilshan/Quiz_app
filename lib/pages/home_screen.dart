@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   bool isPressed = false;
   int score = 0;
   bool isAlreadySelected = false;
+  String? selectedOption;
 
   void showNextQuestion(int questionLength){
     if(index + 1 == questionLength){
@@ -205,22 +206,21 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               height: 25.0,
                             ),
-                            for(int i=0; i<extractedData[index].options.length; i++)
+                            for (int i = 0;
+                            i < extractedData[index].options.length;
+                            i++)
                               GestureDetector(
-                                onTap: () => checkAndUpdate(extractedData[index].options.values.toList()[i]),
+                                onTap: () => checkAndUpdate(
+                                  extractedData[index].options.values.toList()[i] == true,
+                                ),
                                 child: OptionCard(
                                   option: extractedData[index].options.keys.toList()[i],
-                                  color: isPressed
-                                      ? extractedData[index]
-                                      .options
-                                      .values
-                                      .toList()[i] ==
-                                      true
-                                      ? correctColor
-                                      : wrongColor
-                                      : normalColor,
+                                  pressed: isPressed ? true : false,
+                                  correct: extractedData[index].options.values.toList()[i],
                                 ),
-                              )
+                              ),
+
+
                           ],
                         ),
                       ),
