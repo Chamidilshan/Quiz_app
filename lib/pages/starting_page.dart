@@ -55,7 +55,7 @@ class StartingPage extends StatelessWidget {
               );
             },
             child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              margin: EdgeInsets.symmetric(horizontal: 100.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
               ),
@@ -63,8 +63,12 @@ class StartingPage extends StatelessWidget {
               child: Container(
                 child: ListTile(
                   title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      FaIcon(FontAwesomeIcons.book, color: Colors.white.withOpacity(0.5),),
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      FaIcon(FontAwesomeIcons.book, color: Colors.white.withOpacity(0.8),),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -89,19 +93,31 @@ class StartingPage extends StatelessWidget {
               print('pressed lessons');
             },
             child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              margin: EdgeInsets.symmetric(horizontal: 100.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
               ),
               color: backColor,
               child: Container(
                 child: ListTile(
-                  title: Text(
-                    'Video Lessons',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      FaIcon(FontAwesomeIcons.champagneGlasses, color: Colors.white.withOpacity(0.8),),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        'Video Lessons',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -115,19 +131,31 @@ class StartingPage extends StatelessWidget {
               print('pressed lessons');
             },
             child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              margin: EdgeInsets.symmetric(horizontal: 100.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
               ),
               color: backColor,
               child: Container(
                 child: ListTile(
-                  title: Text(
-                    'Exam Questions',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      FaIcon(FontAwesomeIcons.bookOpen, color: Colors.white.withOpacity(0.8),),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        'Exam Questions',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -141,19 +169,31 @@ class StartingPage extends StatelessWidget {
               print('pressed lessons');
             },
             child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 120.0),
+              margin: EdgeInsets.symmetric(horizontal: 100.0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
               ),
               color: backColor,
               child: Container(
                 child: ListTile(
-                  title: Text(
-                    'About with us',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white
-                    ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 20.0,
+                      ),
+                      FaIcon(FontAwesomeIcons.contactCard, color: Colors.white.withOpacity(0.8),),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        'Connect with us',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
