@@ -174,15 +174,15 @@ class _HomePageState extends State<HomePage> {
             var extractedData = snapshot.data as List<Question>;
             return Scaffold(
               backgroundColor: Colors.white,
-              appBar: AppBar(
-                backgroundColor: backColor,
-                title: Text(
-                    'Commerce Quiz App'
-                ),
-                actions: [
-                ],
-                centerTitle: true,
-              ),
+              // appBar: AppBar(
+              //   backgroundColor: backColor,
+              //   title: Text(
+              //       'Commerce Quiz App'
+              //   ),
+              //   actions: [
+              //   ],
+              //   centerTitle: true,
+              // ),
               body: SafeArea(
                 child: Column(
                   children: [
@@ -195,10 +195,10 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
-                          color: backColor,
+                          color: Color(0xFFB38BD4)
                         ),
                         padding: EdgeInsets.all(20.0),
-                        height: 400.0,
+                        height: 440.0,
                         child: Column(
                           children: [
                             QuestionWidget(
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             //Divider(color: Colors.black,),
                             SizedBox(
-                              height: 25.0,
+                              height: 28.0,
                             ),
                             for (int i = 0;
                             i < extractedData[index].options.length;
@@ -223,29 +223,34 @@ class _HomePageState extends State<HomePage> {
                                   correct: extractedData[index].options.values.toList()[i],
                                 ),
                               ),
-
-
                           ],
                         ),
                       ),
                     ),
-                Text(
-                  'Score: $score',
-                  style: TextStyle(
-                      fontSize: 14.0
-                  ),
-                )
+               SizedBox(
+                 height: 20.0,
+               ),
+               GestureDetector(
+                      onTap: () => showNextQuestion(extractedData.length),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: NextButton(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      'Score: $score',
+                      style: TextStyle(
+                          fontSize: 14.0
+                      ),
+                    ),
                   ],
                 ),
               ),
 
-              floatingActionButton: GestureDetector(
-                onTap: () => showNextQuestion(extractedData.length),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: NextButton(),
-                ),
-              ),
+
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
             );
@@ -257,7 +262,7 @@ class _HomePageState extends State<HomePage> {
           }
         }
         return Center(
-          child: CircularProgressIndicator()
+          child: CircularProgressIndicator(color: backColor)
         );
       },
     );

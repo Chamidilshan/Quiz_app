@@ -7,14 +7,18 @@ class NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: backColor,
-        borderRadius: BorderRadius.circular(20.0)
+        borderRadius: BorderRadius.circular(20),
+        color: Color(0xFFB48AD4),
       ),
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 10.0),
-      child: Text(
-        'Next Question',
-        textAlign: TextAlign.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        child: Text(
+          'Next Question',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

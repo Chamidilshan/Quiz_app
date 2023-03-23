@@ -21,20 +21,25 @@ class QuestionWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-              'Question ${indexAction + 1}/$totalQuestions:',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                  'Question ${indexAction + 1}/$totalQuestions ',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white
+                ),
+              ),
+            ],
           ),
           SizedBox(
-            height: 10.0,
+            height: 28.0,
           ),
           Text('$question',
             style: TextStyle(
-                fontSize: 18.0,
-              color: Colors.white
+                fontSize: 22.0,
+              color: Colors.white,
             ),
           )
         ],
