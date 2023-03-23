@@ -25,34 +25,6 @@ class StartingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            // GestureDetector(
-            //   onTap: () {
-            //     print('pressed lessons');
-            //   },
-            //   child: Card(
-            //     margin: EdgeInsets.symmetric(horizontal: 120.0),
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(20.0)
-            //     ),
-            //     color: backColor,
-            //     child: Container(
-            //       child: Row(
-            //         children: [
-            //           FaIcon(FontAwesomeIcons.bookSkull),
-            //           ListTile(
-            //             title: Text(
-            //               'Theory Lessons',
-            //               textAlign: TextAlign.center,
-            //               style: TextStyle(
-            //                 color: Colors.white
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Image.asset('images/books.png', width: 290.0,),
             SizedBox(
               height: 20.0,

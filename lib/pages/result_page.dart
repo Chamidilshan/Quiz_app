@@ -42,6 +42,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
+                    color: Colors.purple
                   ),
                 ),
                 SizedBox(height: 50.0),
