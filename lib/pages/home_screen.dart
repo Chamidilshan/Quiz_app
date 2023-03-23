@@ -40,49 +40,20 @@ class _HomePageState extends State<HomePage> {
       if(isPressed == false){
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              duration: Duration(milliseconds: 800),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)
+              ),
               content: Text('Please select a anwser'),
               behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              backgroundColor: backColor,
+              margin: EdgeInsets.symmetric(vertical: 90.0, horizontal: 90.0),
+              backgroundColor: Colors.purple.withOpacity(0.8),
             )
         );
       } else{
         setState(() {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
         });
-        // showDialog(context: context, builder: (ctx) => AlertDialog(
-        //   backgroundColor: backColor,
-        //   content: Padding(
-        //     padding: const EdgeInsets.all(80.0),
-        //     child: Column(
-        //       mainAxisSize: MainAxisSize.min,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         Text(
-        //           'Total Score: $score',
-        //           style:  TextStyle(
-        //               color: Colors.white
-        //           ),
-        //         ),
-        //         SizedBox(
-        //           height: 20.0,
-        //         ),
-        //         TextButton(
-        //           onPressed: startOver,
-        //           style: TextButton.styleFrom(
-        //               backgroundColor: Colors.green
-        //           ),
-        //           child: Text(
-        //             'Start Again',
-        //             style: TextStyle(
-        //                 color: Colors.white
-        //             ),
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ));
       }
     } else{
       // setState(() {
@@ -97,10 +68,14 @@ class _HomePageState extends State<HomePage> {
       } else{
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
+              duration: Duration(milliseconds: 800),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)
+              ),
               content: Text('Please select a anwser'),
               behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              backgroundColor: backColor,
+              margin: EdgeInsets.symmetric(vertical: 160.0, horizontal: 120.0),
+              backgroundColor: Colors.purple.withOpacity(0.8),
             )
         );
       }
@@ -135,30 +110,6 @@ class _HomePageState extends State<HomePage> {
     });
     Navigator.pop(context);
   }
-  // List<Question> _questions = [
-  //   Question(
-  //       id: '10',
-  //       text: 'A business can be identified as any activity which satisfies '
-  //           'human needs and wants. Wants are created by businessmen. Accordingly, '
-  //           'main characteristic of a need is,',
-  //       options: {
-  //         'Being complex and‘diverse.' : false,
-  //         'Created by businessmen.' : false,
-  //         'Common to all' : false,
-  //         'Being unlimited and unsatisfied' : true
-  //       }
-  //   ),
-  //   Question(
-  //       id: '11',
-  //       text: 'The difference between goods and services can be identified',
-  //       options: {
-  //         'on price' : false,
-  //         'on demand' : false,
-  //         'on supply' : true,
-  //         'on hire' : false
-  //       }
-  //   ),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -185,15 +136,6 @@ class _HomePageState extends State<HomePage> {
                   end: Alignment.bottomCenter,
                 ),),
               child: Scaffold(
-                // appBar: AppBar(
-                //   backgroundColor: backColor,
-                //   title: Text(
-                //       'Commerce Quiz App'
-                //   ),
-                //   actions: [
-                //   ],
-                //   centerTitle: true,
-                // ),
                 body: SafeArea(
                   child: Container(
                     decoration: BoxDecoration(
@@ -218,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                           child: Container(
                             padding: EdgeInsets.all(20.0),
                             color: Colors.white,
-                            height: 440.0,
+                            height: 480.0,
                             child: Column(
                               children: [
                                 QuestionWidget(
@@ -256,22 +198,16 @@ class _HomePageState extends State<HomePage> {
                           onTap: () => showNextQuestion(extractedData.length),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: NextButton(pressed: isPressed ? true : false,),
+                            child: NextButton(pressed: isPressed),
                           ),
                         ),
                         SizedBox(
                           height: 20.0,
                         ),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text('Submit')
-                        ),
-                        Text(
-                          'Score: $score',
-                          style: TextStyle(
-                              fontSize: 14.0
-                          ),
-                        ),
+                        // TextButton(
+                        //     onPressed: () {},
+                        //     child: Text('Submit')
+                        // ),
                       ],
                     ),
                   ),

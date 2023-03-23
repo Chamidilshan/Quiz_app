@@ -36,7 +36,7 @@ class _ResultScreenState extends State<ResultScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 50),
+                //SizedBox(height: 50),
                 Text(
                   'Your Score',
                   style: TextStyle(

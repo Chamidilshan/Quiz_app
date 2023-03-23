@@ -12,7 +12,7 @@ class NextButton extends StatelessWidget {
     Color color =  Color(0xFFB48AD4);
 
     if(pressed){
-      color = Colors.yellow;
+      color = backColor;
     }
 
     return Container(

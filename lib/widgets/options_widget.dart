@@ -21,7 +21,7 @@ class OptionCard extends StatelessWidget {
       if (correct) {
         color = correctColor;
       } else {
-        color = wrongColor;
+        color = wrongColor.withOpacity(0.7);
       }
     }
 

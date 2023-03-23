@@ -67,7 +67,7 @@ class StartingPage extends StatelessWidget {
                 );
               },
               child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 100.0),
+                margin: EdgeInsets.symmetric(horizontal: 90.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)
                 ),
@@ -105,7 +105,7 @@ class StartingPage extends StatelessWidget {
                 print('pressed lessons');
               },
               child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 100.0),
+                margin: EdgeInsets.symmetric(horizontal: 90.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)
                 ),
@@ -143,7 +143,7 @@ class StartingPage extends StatelessWidget {
                 print('pressed lessons');
               },
               child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 100.0),
+                margin: EdgeInsets.symmetric(horizontal: 90.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)
                 ),
@@ -181,7 +181,7 @@ class StartingPage extends StatelessWidget {
                 print('pressed lessons');
               },
               child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 100.0),
+                margin: EdgeInsets.symmetric(horizontal: 90.0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)
                 ),

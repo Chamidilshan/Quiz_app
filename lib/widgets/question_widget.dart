@@ -22,12 +22,12 @@ class QuestionWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                   'Question ${indexAction + 1}/$totalQuestions ',
                 style: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 16.0,
                   color: Colors.black
                 ),
               ),
@@ -38,7 +38,7 @@ class QuestionWidget extends StatelessWidget {
           ),
           Text('$question',
             style: TextStyle(
-                fontSize: 22.0,
+                fontSize: 16.0,
               color: Colors.black,
             ),
           )
