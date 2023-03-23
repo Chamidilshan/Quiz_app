@@ -17,11 +17,17 @@ class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomRight,
-              colors: [Color(0xFFEBCBFD), Color(0xFFEBCBFD) ])),
+        decoration: BoxDecoration(
+        gradient: LinearGradient(
+        colors: [
+        Color(0xFFE7C9FF),
+    Color(0xFFFFDBFF),
+    Color(0xFFDFB7FE),
+    Color(0xFFECCFFD),
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    ),),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
@@ -32,7 +38,7 @@ class _ResultScreenState extends State<ResultScreen> {
               children: [
                 SizedBox(height: 50),
                 Text(
-                  'Congratulations!',
+                  'Your Score',
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,

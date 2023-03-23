@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
             )
         );
       } else{
-       setState(() {
-         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
-       });
+        setState(() {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
+        });
         // showDialog(context: context, builder: (ctx) => AlertDialog(
         //   backgroundColor: backColor,
         //   content: Padding(
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void checkAndUpdate(bool value) {
+  void checkAndUpdate(bool value, int index) {
     if (isAlreadySelected) {
       return;
     } else {
@@ -172,87 +172,115 @@ class _HomePageState extends State<HomePage> {
             );
           }else if(snapshot.hasData){
             var extractedData = snapshot.data as List<Question>;
-            return Scaffold(
-              backgroundColor: Colors.white,
-              // appBar: AppBar(
-              //   backgroundColor: backColor,
-              //   title: Text(
-              //       'Commerce Quiz App'
-              //   ),
-              //   actions: [
-              //   ],
-              //   centerTitle: true,
-              // ),
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(20.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Color(0xFFB38BD4)
-                        ),
-                        padding: EdgeInsets.all(20.0),
-                        height: 440.0,
-                        child: Column(
-                          children: [
-                            QuestionWidget(
-                                question: extractedData[index].text,
-                                indexAction: index,
-                                totalQuestions: extractedData.length
-                            ),
-                            //Divider(color: Colors.black,),
-                            SizedBox(
-                              height: 28.0,
-                            ),
-                            for (int i = 0;
-                            i < extractedData[index].options.length;
-                            i++)
-                              GestureDetector(
-                                onTap: () => checkAndUpdate(
-                                  extractedData[index].options.values.toList()[i] == true,
-                                ),
-                                child: OptionCard(
-                                  option: extractedData[index].options.keys.toList()[i],
-                                  pressed: isPressed ? true : false,
-                                  correct: extractedData[index].options.values.toList()[i],
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-               SizedBox(
-                 height: 20.0,
-               ),
-               GestureDetector(
-                      onTap: () => showNextQuestion(extractedData.length),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: NextButton(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Text(
-                      'Score: $score',
-                      style: TextStyle(
-                          fontSize: 14.0
-                      ),
-                    ),
+            return Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFE7C9FF),
+                    Color(0xFFFFDBFF),
+                    Color(0xFFDFB7FE),
+                    Color(0xFFECCFFD),
                   ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),),
+              child: Scaffold(
+                // appBar: AppBar(
+                //   backgroundColor: backColor,
+                //   title: Text(
+                //       'Commerce Quiz App'
+                //   ),
+                //   actions: [
+                //   ],
+                //   centerTitle: true,
+                // ),
+                body: SafeArea(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFFE7C9FF),
+                          Color(0xFFFFDBFF),
+                          Color(0xFFDFB7FE),
+                          Color(0xFFECCFFD),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 40.0,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(20.0),
+                          child: Container(
+                            padding: EdgeInsets.all(20.0),
+                            color: Colors.white,
+                            height: 440.0,
+                            child: Column(
+                              children: [
+                                QuestionWidget(
+                                    question: extractedData[index].text,
+                                    indexAction: index,
+                                    totalQuestions: extractedData.length
+                                ),
+                                //Divider(color: Colors.black,),
+                                SizedBox(
+                                  height: 28.0,
+                                ),
+                                for (int i = 0;
+                                i < extractedData[index].options.length;
+                                i++)
+                                  GestureDetector(
+                                    onTap: () => checkAndUpdate(
+                                        extractedData[index].options.values.toList()[i] == true,
+                                        i // pass the index of the selected option
+                                    ),
+                                    child: OptionCard(
+                                      option: extractedData[index].options.keys.toList()[i],
+                                      pressed: isPressed ? true : false,
+                                      correct: extractedData[index].options.values.toList()[i],
+                                    ),
+                                  ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        GestureDetector(
+                          onTap: () => showNextQuestion(extractedData.length),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: NextButton(pressed: isPressed ? true : false,),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text('Submit')
+                        ),
+                        Text(
+                          'Score: $score',
+                          style: TextStyle(
+                              fontSize: 14.0
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
+
+
+                floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+                floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
               ),
-
-
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-              floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
             );
           }
           else{
@@ -262,11 +290,10 @@ class _HomePageState extends State<HomePage> {
           }
         }
         return Center(
-          child: CircularProgressIndicator(color: backColor)
+            child: CircularProgressIndicator(color: backColor)
         );
       },
     );
   }
 }
-
 
