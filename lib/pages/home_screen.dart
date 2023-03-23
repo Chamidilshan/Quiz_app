@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         );
       } else{
        setState(() {
-         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen()));
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
        });
         // showDialog(context: context, builder: (ctx) => AlertDialog(
         //   backgroundColor: backColor,
