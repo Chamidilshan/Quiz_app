@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:commerce_quiz_qpp/constants/constants.dart';
 import 'package:commerce_quiz_qpp/models/question_model.dart';
 import 'package:commerce_quiz_qpp/models/database.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -116,10 +117,15 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: _questions as Future<List<Question>>,
       builder: (ctx, snapshot){
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return Center(
+            child: CircularProgressIndicator(), // display a circular progress indicator
+          );
+        }
         if(snapshot.connectionState == ConnectionState.done){
           if(snapshot.hasError){
             return Center(
-              child: Text('${snapshot.error}'),
+              child: CircularProgressIndicator(color: backColor,),
             );
           }else if(snapshot.hasData){
             var extractedData = snapshot.data as List<Question>;
@@ -222,4 +228,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+
+
 
