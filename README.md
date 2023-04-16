@@ -1,16 +1,17 @@
-# commerce_quiz_qpp
+# Commerce Quiz App
+This is a Flutter app for a quiz about commerce. The app uses Firebase Realtime Database as a backend to store and retrieve the quiz questions.
 
-A new Flutter project.
+## Features
+Multiple-choice questions with four options
+Randomly generated questions from a pool of questions
+Score tracking and display of final score
+Firebase Realtime Database integration
 
-## Getting Started
+## Installation
+Clone this repository: git clone https://github.com/your-username/commerce_quiz_app.git
+Change directory to the project: cd commerce_quiz_app
+Install the dependencies: flutter pub get
+Run the app: flutter run
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Configuration
+The app requires a Firebase project and a Realtime Database instance. You will need to create a Firebase project and add a Realtime Database to it, and then update the google-services.json file in the android/app directory with your project's configuration.
