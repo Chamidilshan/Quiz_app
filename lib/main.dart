@@ -1,6 +1,4 @@
 import 'package:commerce_quiz_qpp/models/database.dart';
-import 'package:commerce_quiz_qpp/pages/home_screen.dart';
-import 'package:commerce_quiz_qpp/pages/result_page.dart';
 import 'package:commerce_quiz_qpp/pages/starting_page.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConnectivityAppWrapper(
       app: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Quiz App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,

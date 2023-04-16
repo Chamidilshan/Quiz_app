@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.commerce_quiz_qpp">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="commerce_quiz_qpp"
         android:name="${applicationName}"

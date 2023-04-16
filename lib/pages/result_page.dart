@@ -95,7 +95,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     },
                     icon: FaIcon(FontAwesomeIcons.redo),
                     label: Text(
-                      'Play Again',
+                      'Try Again',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
