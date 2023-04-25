@@ -7,6 +7,8 @@ import 'package:commerce_quiz_qpp/constants/constants.dart';
 import 'package:commerce_quiz_qpp/models/question_model.dart';
 import 'package:commerce_quiz_qpp/models/database.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,6 +21,9 @@ class _HomePageState extends State<HomePage> {
 
   var db = DBconnect();
   late Future _questions;
+  late CountdownTimerController controller;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+  bool timeFinished = false;
 
   Future<List<Question>> getData() async{
     return db.fetchQuestions();
@@ -28,6 +33,18 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _questions = getData();
     super.initState();
+    controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
+  }
+
+  void onEnd() {
+    print('onEnd');
+    timeFinished = true;
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   int index = 0;
@@ -35,6 +52,8 @@ class _HomePageState extends State<HomePage> {
   int score = 0;
   bool isAlreadySelected = false;
   String? selectedOption;
+
+
 
   void showNextQuestion(int questionLength){
     if(index + 1 == questionLength){
@@ -145,13 +164,25 @@ class _HomePageState extends State<HomePage> {
                 child: SafeArea(
                   child: Column(
                     children: [
+                          CountdownTimer(
+                            controller: controller,
+                            onEnd: onEnd,
+                            endTime: endTime,
+                          ),
+                      GestureDetector(
+                        child: Icon(Icons.stop),
+                        onTap: () {
+                          onEnd();
+                          controller.disposeTimer();
+                        },
+                      ),
                       SizedBox(
                         height: 40.0,
                       ),
                       Container(
                         width: double.infinity,
                         padding: EdgeInsets.all(20.0),
-                        child: Container(
+                        child: !timeFinished ? Container(
                           padding: EdgeInsets.all(20.0),
                           color: Colors.white,
                           height: 480.0,
@@ -183,7 +214,7 @@ class _HomePageState extends State<HomePage> {
 
                             ],
                           ),
-                        ),
+                        ) : SizedBox(),
                       ),
                       SizedBox(
                         height: 20.0,

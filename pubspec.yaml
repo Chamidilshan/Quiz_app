@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.5
   font_awesome_flutter: ^10.4.0
   connectivity_wrapper: ^1.1.1
+  flutter_countdown_timer: ^4.1.0
 
 dev_dependencies:
   flutter_test:
