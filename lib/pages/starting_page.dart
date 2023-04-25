@@ -148,39 +148,11 @@ class StartingPage extends StatelessWidget {
             SizedBox(
               height: 20.0,
             ),
-            GestureDetector(
-              onTap: () {
-                print('pressed lessons');
-              },
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 90.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)
-                ),
-                color: backColor.withOpacity(0.7) ,
-                child: Container(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20.0,
-                        ),
-                        FaIcon(FontAwesomeIcons.contactCard, color: Colors.white.withOpacity(0.8),),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          'Connect with us',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+            ElevatedButton(
+                onPressed: (){},
+                child: Text('Connect with us'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0)
               ),
             ),
             SizedBox(
