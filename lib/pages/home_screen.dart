@@ -72,7 +72,11 @@ class _HomePageState extends State<HomePage> {
         );
       } else{
         setState(() {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
+          if(!timeFinished){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
+          }else if(timeFinished){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
+          }
         });
       }
     } else{
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
             var extractedData = snapshot.data as List<Question>;
             return Scaffold(
               body: Container(
-                decoration: BoxDecoration(
+                decoration: BoxDecoration(  
                   gradient: LinearGradient(
                     colors: [
                       Color(0xFFE7C9FF),
@@ -161,82 +165,107 @@ class _HomePageState extends State<HomePage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),),
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                          CountdownTimer(
-                            controller: controller,
-                            onEnd: onEnd,
-                            endTime: endTime,
-                          ),
-                      GestureDetector(
-                        child: Icon(Icons.stop),
-                        onTap: () {
-                          onEnd();
-                          controller.disposeTimer();
-                        },
-                      ),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(20.0),
-                        child: !timeFinished ? Container(
+                child: SingleChildScrollView(
+                  child: SafeArea(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 40.0,
+                        ),
+                        Container(
+                          width: double.infinity,
                           padding: EdgeInsets.all(20.0),
-                          color: Colors.white,
-                          height: 480.0,
-                          child: Column(
-                            children: [
-                              QuestionWidget(
-                                  question: extractedData[index].text,
-                                  indexAction: index,
-                                  totalQuestions: extractedData.length
+                          child:  Container(
+                            padding: EdgeInsets.all(20.0),
+                            color: Colors.white,
+                            height: 480.0,
+                            child: Column(
+                              children: [
+                                CountdownTimer(
+                                controller: controller,
+                                onEnd: onEnd,
+                                endTime: endTime,
                               ),
-                              //Divider(color: Colors.black,),
-                              SizedBox(
-                                height: 28.0,
-                              ),
-                              for (int i = 0;
-                              i < extractedData[index].options.length;
-                              i++)
-                                GestureDetector(
-                                  onTap: () => checkAndUpdate(
-                                      extractedData[index].options.values.toList()[i] == true,
-                                      i // pass the index of the selected option
-                                  ),
-                                  child: OptionCard(
-                                    option: extractedData[index].options.keys.toList()[i],
-                                    pressed: isPressed ? true : false,
-                                    correct: extractedData[index].options.values.toList()[i],
-                                  ),
+                                // GestureDetector(
+                                //   child: Icon(Icons.stop),
+                                //   onTap: () {
+                                //     onEnd();
+                                //     controller.disposeTimer();
+                                //   },
+                                // ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                // if(timeFinished)AlertDialog(
+                                //   title: const Text('AlertDialog Title'),
+                                //   content: SingleChildScrollView(
+                                //     child: ListBody(
+                                //       children: const <Widget>[
+                                //         Text('This is a demo alert dialog.'),
+                                //         Text('Would you like to approve of this message?'),
+                                //       ],
+                                //     ),
+                                //   ),
+                                //   actions: <Widget>[
+                                //     TextButton(
+                                //       child: const Text('Approve'),
+                                //       onPressed: () {
+                                //         showNextQuestion(10);
+                                //       },
+                                //     ),
+                                //   ],
+                                // ),
+                                QuestionWidget(
+                                    question: extractedData[index].text,
+                                    indexAction: index,
+                                    totalQuestions: extractedData.length
+                                ),
+                                //Divider(color: Colors.black,),
+                                SizedBox(
+                                  height: 28.0,
                                 ),
 
-                            ],
+                                for (int i = 0;
+                                i < extractedData[index].options.length;
+                                i++)
+                                  GestureDetector(
+                                    onTap: () => checkAndUpdate(
+                                        extractedData[index].options.values.toList()[i] == true,
+                                        i // pass the index of the selected option
+                                    ),
+                                    child: OptionCard(
+                                      option: extractedData[index].options.keys.toList()[i],
+                                      pressed: isPressed ? true : false,
+                                      correct: extractedData[index].options.values.toList()[i],
+                                    ),
+                                  ),
+
+                              ],
+                            ),
                           ),
-                        ) : SizedBox(),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      GestureDetector(
-                        onTap: () => showNextQuestion(extractedData.length),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: NextButton(pressed: isPressed),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      // TextButton(
-                      //     onPressed: () {},
-                      //     child: Text('Submit')
-                      // ),
-                      SizedBox(
-                        height: 20.0,
-                      )
-                    ],
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        GestureDetector(
+                          onTap: () => showNextQuestion(extractedData.length),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: NextButton(pressed: isPressed),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        // TextButton(
+                        //     onPressed: () {},
+                        //     child: Text('Submit')
+                        // ),
+                        SizedBox(
+                          height: 20.0,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
