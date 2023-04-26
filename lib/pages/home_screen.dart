@@ -39,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   void onEnd() {
     print('onEnd');
     timeFinished = true;
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: 10)));
   }
 
   @override
@@ -72,9 +73,9 @@ class _HomePageState extends State<HomePage> {
         );
       } else{
         setState(() {
-          if(!timeFinished){
+          if(timeFinished == false){
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
-          }else if(timeFinished){
+          }else if(timeFinished == true){
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
           }
         });
@@ -210,6 +211,7 @@ class _HomePageState extends State<HomePage> {
                                 //     TextButton(
                                 //       child: const Text('Approve'),
                                 //       onPressed: () {
+                                //
                                 //         showNextQuestion(10);
                                 //       },
                                 //     ),
