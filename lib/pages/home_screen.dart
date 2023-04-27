@@ -9,6 +9,7 @@ import 'package:commerce_quiz_qpp/models/database.dart';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:quickalert/quickalert.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -124,6 +125,17 @@ class _HomePageState extends State<HomePage> {
         });
       }
     }
+    if(value == true){
+      QuickAlert.show(
+          context: context,
+          customAsset: 'images/success.gif',
+          title: 'Correct Anwser',
+          titleColor: Colors.green,
+          type: QuickAlertType.success,
+        confirmBtnText: 'Next Question',
+        confirmBtnColor: Colors.green,
+      );
+    }
   }
 
   void startOver() {
@@ -143,7 +155,7 @@ class _HomePageState extends State<HomePage> {
       builder: (ctx, snapshot){
         if(snapshot.connectionState == ConnectionState.waiting){
           return Center(
-            child: CircularProgressIndicator(), // display a circular progress indicator
+            child: CircularProgressIndicator(color: backColor), // display a circular progress indicator
           );
         }
         if(snapshot.connectionState == ConnectionState.done){
@@ -197,26 +209,6 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(
                                   height: 20.0,
                                 ),
-                                // if(timeFinished)AlertDialog(
-                                //   title: const Text('AlertDialog Title'),
-                                //   content: SingleChildScrollView(
-                                //     child: ListBody(
-                                //       children: const <Widget>[
-                                //         Text('This is a demo alert dialog.'),
-                                //         Text('Would you like to approve of this message?'),
-                                //       ],
-                                //     ),
-                                //   ),
-                                //   actions: <Widget>[
-                                //     TextButton(
-                                //       child: const Text('Approve'),
-                                //       onPressed: () {
-                                //
-                                //         showNextQuestion(10);
-                                //       },
-                                //     ),
-                                //   ],
-                                // ),
                                 QuestionWidget(
                                     question: extractedData[index].text,
                                     indexAction: index,
@@ -279,7 +271,7 @@ class _HomePageState extends State<HomePage> {
           }
           else{
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: backColor),
             );
           }
         }
