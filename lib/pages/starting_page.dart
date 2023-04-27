@@ -11,155 +11,109 @@ class StartingPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-        gradient: LinearGradient(
-        colors: [
-        Color(0xFFE7C9FF),
-    Color(0xFFFFDBFF),
-    Color(0xFFDFB7FE),
-    Color(0xFFECCFFD),
-    ],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    ),),
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFE7C9FF),
+              Color(0xFFFFDBFF),
+              Color(0xFFDFB7FE),
+              Color(0xFFECCFFD),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Image.asset('images/books.png', width: 290.0,),
-            SizedBox(
-              height: 20.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                print('pressed quiz');
-                Navigator.push(
-                    context, MaterialPageRoute(
-                    builder: (context) => HomePage()
-                )
-                );
-              },
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 90.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)
-                ),
-                color: backColor,
-                child: Container(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20.0,
+            SizedBox(height: 20.0),
+            Expanded(
+              child: Column(
+                children: [
+                  _buildButton(
+                    icon: FontAwesomeIcons.book,
+                    label: 'Start Quiz',
+                    color: backColor,
+                    onPressed: () {
+                      print('pressed quiz');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
                         ),
-                        FaIcon(FontAwesomeIcons.book, color: Colors.white.withOpacity(0.8),),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          'Start Quiz',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                print('pressed lessons');
-              },
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 90.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)
-                ),
-                color: backColor.withOpacity(0.7),
-                child: Container(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20.0,
-                        ),
-                        FaIcon(FontAwesomeIcons.champagneGlasses, color: Colors.white.withOpacity(0.8),),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          'Video Lessons',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
+                  SizedBox(height: 20.0),
+                  _buildButton(
+                    icon: FontAwesomeIcons.champagneGlasses,
+                    label: 'Video Lessons',
+                    color: backColor.withOpacity(0.5),
+                    onPressed: () {
+                      print('pressed lessons');
+                    },
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                print('pressed lessons');
-              },
-              child: Card(
-                margin: EdgeInsets.symmetric(horizontal: 90.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)
-                ),
-                color: backColor.withOpacity(0.7),
-                child: Container(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 20.0,
-                        ),
-                        FaIcon(FontAwesomeIcons.bookOpen, color: Colors.white.withOpacity(0.8),),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          'Exam Questions',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ),
+                  SizedBox(height: 20.0),
+                  _buildButton(
+                    icon: FontAwesomeIcons.bookOpen,
+                    label: 'Exam Questions',
+                    color: backColor.withOpacity(0.5),
+                    onPressed: () {
+                      print('pressed questions');
+                    },
                   ),
-                ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  _buildButton(
+                    icon: FontAwesomeIcons.book,
+                    label: 'Connect with us',
+                    color: backColor.withOpacity(0.5),
+                    onPressed: () {
+                      print('pressed quiz');
+                    },
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-                onPressed: (){},
-                child: Text('Connect with us'),
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0)
-              ),
-            ),
-            SizedBox(
-              height: 80.0,
-            )
-
+            SizedBox(height: 80.0),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButton({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return Flexible(
+      child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 90.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        color: color,
+        child: InkWell(
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                FaIcon(icon, color: Colors.white.withOpacity(0.8)),
+                SizedBox(width: 10.0),
+                Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
