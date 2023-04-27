@@ -129,11 +129,21 @@ class _HomePageState extends State<HomePage> {
       QuickAlert.show(
           context: context,
           customAsset: 'images/success.gif',
-          title: 'Correct Anwser',
+          title: 'Correct Answer',
           titleColor: Colors.green,
           type: QuickAlertType.success,
         confirmBtnText: 'Next Question',
         confirmBtnColor: Colors.green,
+      );
+    }else if(value == false){
+      QuickAlert.show(
+        context: context,
+        customAsset: 'images/wrongAnswer.gif',
+        title: 'Wrong Answer',
+        titleColor: Colors.red,
+        type: QuickAlertType.success,
+        confirmBtnText: 'Next Question',
+        confirmBtnColor: Colors.red,
       );
     }
   }
