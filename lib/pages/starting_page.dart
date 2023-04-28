@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:commerce_quiz_qpp/constants/constants.dart';
 import 'package:commerce_quiz_qpp/pages/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,76 +10,82 @@ class StartingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFE7C9FF),
-              Color(0xFFFFDBFF),
-              Color(0xFFDFB7FE),
-              Color(0xFFECCFFD),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Image.asset('images/books.png', width: 290.0,),
-            SizedBox(height: 20.0),
-            Expanded(
-              child: Column(
-                children: [
-                  _buildButton(
-                    icon: FontAwesomeIcons.book,
-                    label: 'Start Quiz',
-                    color: backColor,
-                    onPressed: () {
-                      print('pressed quiz');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 20.0),
-                  _buildButton(
-                    icon: FontAwesomeIcons.champagneGlasses,
-                    label: 'Video Lessons',
-                    color: backColor.withOpacity(0.5),
-                    onPressed: () {
-                      print('pressed lessons');
-                    },
-                  ),
-                  SizedBox(height: 20.0),
-                  _buildButton(
-                    icon: FontAwesomeIcons.bookOpen,
-                    label: 'Exam Questions',
-                    color: backColor.withOpacity(0.5),
-                    onPressed: () {
-                      print('pressed questions');
-                    },
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  _buildButton(
-                    icon: FontAwesomeIcons.book,
-                    label: 'Connect with us',
-                    color: backColor.withOpacity(0.5),
-                    onPressed: () {
-                      print('pressed quiz');
-                    },
-                  ),
-                ],
-              ),
+      body: FadeAnimation(
+        duration: Duration(milliseconds: 2000),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFE7C9FF),
+                Color(0xFFFFDBFF),
+                Color(0xFFDFB7FE),
+                Color(0xFFECCFFD),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            SizedBox(height: 80.0),
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 20.0,
+              ),
+              Image.asset('images/books.png', width: 290.0,),
+              SizedBox(height: 20.0),
+              Expanded(
+                child: Column(
+                  children: [
+                    _buildButton(
+                      icon: FontAwesomeIcons.book,
+                      label: 'Start Quiz',
+                      color: backColor,
+                      onPressed: () {
+                        print('pressed quiz');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 20.0),
+                    _buildButton(
+                      icon: FontAwesomeIcons.champagneGlasses,
+                      label: 'Video Lessons',
+                      color: backColor.withOpacity(0.5),
+                      onPressed: () {
+                        print('pressed lessons');
+                      },
+                    ),
+                    SizedBox(height: 20.0),
+                    _buildButton(
+                      icon: FontAwesomeIcons.bookOpen,
+                      label: 'Exam Questions',
+                      color: backColor.withOpacity(0.5),
+                      onPressed: () {
+                        print('pressed questions');
+                      },
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    _buildButton(
+                      icon: FontAwesomeIcons.book,
+                      label: 'Connect with us',
+                      color: backColor.withOpacity(0.5),
+                      onPressed: () {
+                        print('pressed quiz');
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 80.0),
+            ],
+          ),
         ),
       ),
     );
