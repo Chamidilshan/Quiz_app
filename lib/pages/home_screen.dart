@@ -1,3 +1,4 @@
+import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:commerce_quiz_qpp/pages/result_page.dart';
 import 'package:commerce_quiz_qpp/widgets/next_button_widget.dart';
 import 'package:commerce_quiz_qpp/widgets/options_widget.dart';
@@ -39,8 +40,15 @@ class _HomePageState extends State<HomePage> {
 
   void onEnd() {
     print('onEnd');
+    bool navigation = true;
     timeFinished = true;
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: 10)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: 4)));
+  }
+  
+  void navi(int questionLength){
+    if(navi == true){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultScreen(total: score, quesLength: questionLength)));
+    }
   }
 
   @override
@@ -176,19 +184,20 @@ class _HomePageState extends State<HomePage> {
           }else if(snapshot.hasData){
             var extractedData = snapshot.data as List<Question>;
             return Scaffold(
-              body: Container(
-                decoration: BoxDecoration(  
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFE7C9FF),
-                      Color(0xFFFFDBFF),
-                      Color(0xFFDFB7FE),
-                      Color(0xFFECCFFD),
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),),
-                child: SingleChildScrollView(
+              body: FadeAnimation(
+                duration: Duration(milliseconds: 1000),
+                child: Container(
+                  decoration: BoxDecoration(  
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFE7C9FF),
+                        Color(0xFFFFDBFF),
+                        Color(0xFFDFB7FE),
+                        Color(0xFFECCFFD),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),),
                   child: SafeArea(
                     child: Column(
                       children: [
@@ -232,15 +241,17 @@ class _HomePageState extends State<HomePage> {
                                 for (int i = 0;
                                 i < extractedData[index].options.length;
                                 i++)
-                                  GestureDetector(
-                                    onTap: () => checkAndUpdate(
-                                        extractedData[index].options.values.toList()[i] == true,
-                                        i // pass the index of the selected option
-                                    ),
-                                    child: OptionCard(
-                                      option: extractedData[index].options.keys.toList()[i],
-                                      pressed: isPressed ? true : false,
-                                      correct: extractedData[index].options.values.toList()[i],
+                                  FadeAnimation(
+                                    child: GestureDetector(
+                                      onTap: () => checkAndUpdate(
+                                          extractedData[index].options.values.toList()[i] == true,
+                                          i // pass the index of the selected option
+                                      ),
+                                      child: OptionCard(
+                                        option: extractedData[index].options.keys.toList()[i],
+                                        pressed: isPressed ? true : false,
+                                        correct: extractedData[index].options.values.toList()[i],
+                                      ),
                                     ),
                                   ),
 
@@ -252,14 +263,13 @@ class _HomePageState extends State<HomePage> {
                           height: 20.0,
                         ),
                         GestureDetector(
-                          onTap: () => showNextQuestion(extractedData.length),
+                          onTap: (){
+                            showNextQuestion(extractedData.length);
+                          },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
                             child: NextButton(pressed: isPressed),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
                         ),
                         // TextButton(
                         //     onPressed: () {},
@@ -291,6 +301,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
 }
 
 
